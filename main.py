@@ -1,16 +1,27 @@
-# This is a sample Python script.
+import pandas as pd
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+# Reads Fleet Data CSV
+df = pd.read_csv("fleet.csv", index_col=0)
+df.columns.tolist()
+# Take a look to understand data
+print(df.head())
+print(df.shape)
 
+df = df.drop(['Lease To', 'Lease To Derived', 'Lease From', 'Engine Series'], axis=1)
+# Outputs sum of missing values per column
+print(df.isna().sum())
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+# Replaces missing values with 'NaN'
+cleaned_df = df.fillna('NaN')
+print(cleaned_df.isna().sum())
 
+# Remove duplicates of Serial Number and Registration Number
+cleaned_dup = df.drop_duplicates(subset=["Serial Number", "Tail/Registration Number"])
+print(df.shape)
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+# Sorts Database by Lessor/Owner for Visualization
+Lessor = df.sort_values(by=['Lessor/Owner', 'Operator Country/Territory', 'Age'])
+print(Lessor.head())
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+df1 = df.iloc[0:100, 1:5]
+print(df1.shape)
