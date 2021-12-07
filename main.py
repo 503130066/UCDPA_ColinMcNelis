@@ -55,4 +55,15 @@ print(result.shape)
 cleaned_dup2 = result.drop_duplicates(subset=["Tail/Registration Number"])
 print(cleaned_dup2.shape)
 
-# This section examines using an aviation API
+# This section examines using an ISS Location API
+import requests
+
+# The ISS information API is a type 1 API
+data = requests.get("http://api.open-notify.org/iss-now.json")
+print(data.json())
+
+data = data.json()
+# The below print call outputs the ISS Position from the API
+print(data["iss_position"])
+
+# Define a custom function to create reusable code
