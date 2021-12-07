@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 # Reads Fleet Data CSV
 df = pd.read_csv("fleet.csv", index_col=0, skipinitialspace=True)
@@ -37,3 +38,21 @@ df4 = df.iloc[[1, 2, 3, 4, 5, 6, 7, 8, 9, 10], [0, 10]]
 print(df4)
 
 print(df["Age"])
+
+# The following code shows a looping function for a Pandas Dataframe
+for lab, row in df3.iterrows() :
+    df3.loc[lab, "Avg_age"]= np.mean(row["Age"])
+print(df3)
+
+print(df2[(df2["Age"] <= 4) & (df2['Aircraft Variant'] == "A320-200")])
+
+# The following code merges Dataframes
+frames = [df, df1]
+result = pd.concat(frames)
+print(df.shape)
+print(result.shape)
+
+cleaned_dup2 = result.drop_duplicates(subset=["Tail/Registration Number"])
+print(cleaned_dup2.shape)
+
+# This section examines using an aviation API
