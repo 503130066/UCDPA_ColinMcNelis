@@ -67,3 +67,10 @@ data = data.json()
 print(data["iss_position"])
 
 # Define a custom function to create reusable code
+
+# Visualise
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+sns.boxplot(x=df3['Aircraft Variant'].head(250), y=df3['Age'].head(250))
+plt.show()
