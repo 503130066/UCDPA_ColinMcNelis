@@ -30,10 +30,13 @@ print(Lessor.head())
 # Using loc to create subset of Dataframe examining EasyJet Fleet
 df1 = df.loc[["easyJet"], ["Status", "Aircraft Variant"]]
 print(df1.shape)
+A2 =df.pivot_table(index="Operator", columns= "Aircraft Variant", values = "Age", aggfunc=np.mean)
 
 # Using loc to create subset of Dataframe examining Lessor Portfolio
 df2 = df.loc[:, ["Lessor/Owner", "Aircraft Variant", "Age"]]
 print(df2.shape)
+A1 =df2.pivot_table(index="Lessor/Owner", columns= "Aircraft Variant", values = "Age", aggfunc=np.mean)
+print(A1.head(100))
 
 df3 = df.loc[["Wizz Air"], ["Aircraft Variant", "Age"]]
 
@@ -73,4 +76,22 @@ print(data["iss_position"])
 
 ax1 = sns.boxplot(x=df3['Aircraft Variant'].head(150), y=df3['Age'].head(150))
 ax1.set_title('Wizz Air Aircraft Portfolio Age')
+sns.set_style("whitegrid")
+plt.show()
+
+ax2 = sns.barplot(x=A1["A320-200"].head(20), y=A1.index[0:20], data=A1)
+ax2.set(xlabel="Mean Age", ylabel="Lessor/Owner")
+ax2.set_title('A320-200 Portfolio Age by Lessor')
+sns.set_style("whitegrid")
+plt.show()
+
+ax3 = sns.barplot(x=A2["737-800"].head(40), y=A2.index[0:40], data=A2)
+ax3.set(xlabel="Mean Age", ylabel="Lessor/Owner")
+ax3.set_title('737-800 Portfolio Age by Operator')
+sns.set_style("whitegrid")
+plt.show()
+
+ax4 =sns.countplot(x="Aircraft Variant", data=df3)
+ax4.set_title('Wizz Air Portfolio Count')
+sns.set_style("whitegrid")
 plt.show()
