@@ -71,9 +71,35 @@ data = data.json()
 print(data["iss_position"])
 
 # Define a custom function to create reusable code
+# This function outputs a matrix of n size given n*n elements
 
-# Visualise
 
+def square_matrix(size, *elements):
+    return np.array(elements).reshape(size,size)
+
+
+a = square_matrix(3, 2, 9, 3, 10, 4, 15, 7, 1, 0)
+b = square_matrix(3, 4, 3, 10, 9, 0, 0, 1, 0, 7)
+print(a)
+print(b)
+
+# A numpy function can then be used to get the dot product of matrices
+c = np.dot(a, b)
+print(c)
+
+# Creating a dictionary from lists
+Airline = ["Wizz Air", "Ryanair", 'Delta Airlines', "Finnair", "Air France"]
+AvgAge = [1.5, 9, 15.25, 11.6, 14]
+
+Airline_Portfolio_Age = {'Wizz Air': 1.5, "Ryanair": 9, "Delta Airlines": 15.25, "Finnair": 11.6, "Air France": 14,
+                         'EasyJet': 3}
+
+# To manipulate the dictionary, a further key:value pair can be added
+# The print command below indicates the key:value pair has been added to the dictionary
+print(Airline_Portfolio_Age)
+
+
+# Visualise: These plots use the data from the imported csv and subset dataframes
 ax1 = sns.boxplot(x=df3['Aircraft Variant'].head(150), y=df3['Age'].head(150))
 ax1.set_title('Wizz Air Aircraft Portfolio Age')
 sns.set_style("whitegrid")
@@ -85,13 +111,13 @@ ax2.set_title('A320-200 Portfolio Age by Lessor')
 sns.set_style("whitegrid")
 plt.show()
 
-ax3 = sns.barplot(x=A2["737-800"].head(40), y=A2.index[0:40], data=A2)
+ax3 = sns.barplot(x=A2["737-800"].head(25), y=A2.index[0:25], data=A2)
 ax3.set(xlabel="Mean Age", ylabel="Lessor/Owner")
 ax3.set_title('737-800 Portfolio Age by Operator')
 sns.set_style("whitegrid")
 plt.show()
 
-ax4 =sns.countplot(x="Aircraft Variant", data=df3)
+ax4 = sns.countplot(x="Aircraft Variant", data=df3)
 ax4.set_title('Wizz Air Portfolio Count')
 sns.set_style("whitegrid")
 plt.show()
